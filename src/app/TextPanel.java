@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package app;
 
 import java.awt.BorderLayout;
@@ -33,6 +30,8 @@ public class TextPanel extends JPanel {
         uManager = new UndoManager();
         um = uManager;
 
+        
+//        Since the TextPanel is instantiated first in the MainFrame, I made a timer to wait 200 milli seconds until the FormatPanel is instantiated then assign the variable
         timeout = new Timer(200, evt -> {
             size = FormatPanel.size;
         });
@@ -40,14 +39,8 @@ public class TextPanel extends JPanel {
         timeout.start();
         tOut = timeout;
 
-//        timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                size = FormatPanel.size;
-//            }
-//        }, 200);
-//        Use UndoManager to enable undoing redoing
+
+//        Use UndoManager to enable undoing & redoing
         textArea.getDocument().addUndoableEditListener(
                 new UndoableEditListener() {
             @Override
@@ -80,6 +73,5 @@ public class TextPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
     }
-//    timer.cancel();
 
 }

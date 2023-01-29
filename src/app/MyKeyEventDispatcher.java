@@ -28,6 +28,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+// This class creates a new note of copied text on the clipboard and saves it automaticaly when clicking "ctrl alt c"
+
 class MyKeyEventDispatcher implements KeyEventDispatcher {
 
     JFrame frame;
@@ -54,11 +56,8 @@ class MyKeyEventDispatcher implements KeyEventDispatcher {
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                 String currentDate = dateFormat.format(new Date());
-                String text = TextPanel.txtArea.getText();
 
                 fileName = currentDate + (clipboardText.length() > 20 ? clipboardText.substring(0, 20) : clipboardText);
-
-//                if (!"".equals(TextPanel.txtArea.getText())) {
                 JPanel filePanel = new JPanel();
                 filePanel.setLayout(new BoxLayout(filePanel, BoxLayout.X_AXIS));
 
@@ -87,24 +86,6 @@ class MyKeyEventDispatcher implements KeyEventDispatcher {
                 frame.setTitle(fileNameCopy);
 
                 File file = new File(directory, fileNameCopy + ".txt");
-
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-//                String currentDate = dateFormat.format(new Date());
-//                String fileName = currentDate + Toolbar.fileName + ".txt";
-//
-////                if (!"".equals(TextPanel.txtArea.getText())) {
-//                JPanel filePanel = new JPanel();
-//                filePanel.setLayout(new BoxLayout(filePanel, BoxLayout.X_AXIS));
-//
-//                JLabel fileLabel = new JLabel(currentDate + Toolbar.fileName);
-//                JButton fileButton = new JButton("Open");
-//                sidePanel.add(Box.createVerticalStrut(10));
-//
-//                filePanel.add(fileLabel);
-//                filePanel.add(fileButton);
-//
-//                File directory = new File("C:\\Users\\me\\Documents\\My Notes");
-//                File file = new File(directory, fileName);
                 try {
                     FileOutputStream fos = new FileOutputStream(file);
                     fos.write(clipboardText.getBytes());

@@ -2,7 +2,6 @@
 package app;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
@@ -65,18 +64,6 @@ public class FormatPanel extends JPanel implements ActionListener {
 
         button = new JButton("Saved Notes");
         button.setBackground(Color.YELLOW);
-        
-//        setLayout(new BorderLayout());
-//        JPanel westPanel = new JPanel();
-//        westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.X_AXIS));
-//        westPanel.add(font);
-//        westPanel.add(fontSize);
-//        westPanel.add(fontFamily);
-//        westPanel.add(color);
-//        westPanel.add(button);
-//
-//        add(westPanel, BorderLayout.WEST);
-//        add(button, BorderLayout.EAST);
 
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
@@ -121,11 +108,6 @@ public class FormatPanel extends JPanel implements ActionListener {
             textArea.setForeground(color);
         }
 
-//        if (e.getSource() == button) {
-//
-//            new SideWindow();
-//
-//        }
     }
 
 }

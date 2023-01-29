@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package app;
 
+import static app.SideWindow.sidePanel;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -24,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import java.util.stream.Collectors;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
@@ -104,10 +102,6 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
         view = new JMenu("View");
         format = new JMenu("Format");
         theme = new JMenu("Theme");
-
-//        saveNote = new JMenuItem("Save");
-//        saveNote.addActionListener(this);
-//        add(saveNote);
         newFile = new JMenuItem("New");
         newWindow = new JMenuItem("New Window");
         openFile = new JMenuItem("Open");
@@ -254,12 +248,6 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
         zRestore.setAccelerator(keyStrokeToDefaultZoom);
         wordWrap.setAccelerator(keyStrokeToWrap);
 
-//        fCalibri = new Font("Calibri", Font.PLAIN, textArea.getFont().getSize());
-//        fCourier = new Font("Courier New", Font.PLAIN, textArea.getFont().getSize());
-//        fGaramond = new Font("Garamond", Font.PLAIN, textArea.getFont().getSize());
-//        fGeorgia = new Font("Georgia", Font.PLAIN, textArea.getFont().getSize());
-//        fImpact = new Font("Impact", Font.PLAIN, textArea.getFont().getSize());
-//        fTimes = new Font("Times New Roman", Font.PLAIN, textArea.getFont().getSize());
         add(file);
         add(edit);
         add(view);
@@ -291,18 +279,6 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
     @Override
     public void actionPerformed(ActionEvent e) {
 
-//        if (e.getSource() == saveNote) {
-//            saveAs();
-//            JButton fileButton = new JButton("File " + fileName);
-//            fileButton.addActionListener(new ActionListener() {
-//                public void actionPerformed(ActionEvent e) {
-//                    open();
-//                }
-//            });
-//            sidePanel.add(fileButton);
-//            sidePanel.validate();
-//
-//        }
 // Edit menu items
         if (e.getSource()
                 == undo) {
@@ -459,28 +435,29 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
         if (e.getSource()
                 == openFile) {
 
-            FileDialog fd = new FileDialog(frame, "Open File", FileDialog.LOAD);
-            fd.setVisible(true);
+            open();
 
-            if (fd.getFile() != null) {
-
-                fileName = fd.getFile();
-                fileAddress = fd.getDirectory();
-                frame.setTitle(fileName);
-
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(fileAddress + fileName), 32768);
-
-                    String txt = br.lines().collect(Collectors.joining(System.lineSeparator()));
-                    textArea.setText("");
-                    textArea.append(txt);
-                } catch (Exception ex) {
-
-                    System.out.println("FILE DIDN'T OPEN!");
-
-                }
-            }
-
+//            FileDialog fd = new FileDialog(frame, "Open File", FileDialog.LOAD);
+//            fd.setVisible(true);
+//
+//            if (fd.getFile() != null) {
+//
+//                fileName = fd.getFile();
+//                fileAddress = fd.getDirectory();
+//                frame.setTitle(fileName);
+//
+//                try {
+//                    BufferedReader br = new BufferedReader(new FileReader(fileAddress + fileName), 32768);
+//
+//                    String txt = br.lines().collect(Collectors.joining(System.lineSeparator()));
+//                    textArea.setText("");
+//                    textArea.append(txt);
+//                } catch (Exception ex) {
+//
+//                    System.out.println("FILE DIDN'T OPEN!");
+//
+//                }
+//            }
         }
 
         if (e.getSource()
@@ -530,7 +507,7 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
                 textArea.setCaretPosition(0);
             } catch (Exception ex) {
 
-                System.out.println("FILE DIDN'T OPEN!");
+                System.out.println("File didn't open, Try again");
 
             }
         }
@@ -546,7 +523,25 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
             fw.close();
 
         } catch (Exception e) {
-            System.out.println("SOMETHING WENT WRONG, TRY AGAIN!");
+            System.out.println("You've missed Java up, Try again" + e);
+        }
+
+        if (frame.getTitle().length() > 18) {
+            for (Component c : sidePanel.getComponents()) {
+                if (c instanceof JPanel) {
+                    JPanel subPanel = (JPanel) c;
+                    for (Component subC : subPanel.getComponents()) {
+                        if (subC instanceof JLabel) {
+                            JLabel label = (JLabel) subC;
+                            if (label.getText().substring(0, 19).equals(frame.getTitle().substring(0, 19))) {
+                                String text = TextPanel.txtArea.getText().length() > 20 ? TextPanel.txtArea.getText().substring(0, 20) : TextPanel.txtArea.getText();
+                                label.setText(frame.getTitle().substring(0, 19) + text);
+
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }
@@ -571,7 +566,7 @@ public class Toolbar extends JMenuBar implements ActionListener, DocumentListene
 
         } catch (Exception e) {
 
-            System.out.println("SOMETHING WENT WRONG, TRY AGAIN!");
+            System.out.println("You've missed Java up, Try again" + e);
         }
 
     }
