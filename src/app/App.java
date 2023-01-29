@@ -1,0 +1,18 @@
+package app;
+
+
+import javax.swing.SwingUtilities;
+
+public class App {
+    
+
+    static public void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run() {
+                 new MainFrame();
+            }
+        
+        });
+    }
+}
