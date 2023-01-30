@@ -20,5 +20,5 @@ This is a notepad-like app and a note taking app combined together, built with J
 ### Future improvements/ideas
 - Adding global shortcuts
 - Adding new themes
-- A "Find" feature to search for certain text in the note or all notes
-- Being able to make new notebooks where you can add set of notes (files) to each notebook separately
+- A "Find" menu item to search for certain text in the note or all notes
+- Being able to make new notebooks where you can add a set of notes (files) to each notebook separately
