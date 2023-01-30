@@ -8,14 +8,14 @@ A Notepad and a Note Taking app all at once.
 - Wrap or unwrap words
 - Zoom in and out by: Changing font size or Holding CTRL while scrolling the mouse or Using the zoom in/out in the View menu
 - Use different themes
-- Change font family with a full long list of font families or by choosing from handful popular fonts
+- Change font family with a full long list of font families or by choosing from a few popular fonts
 - Change font color
-- Most of previous buttons/items have keyboard shortcuts
+- Most of the previous buttons/items have keyboard shortcuts
 - Use "ctrl + alt + c" to make a new note of text copied to the clipboard and saves it automatically.
 - A side window to open saved notes
 
 ## Description
-This is a notepad-like app and a note taking app combined together, built with Java and Java swing for the GUI. You can save text whether to external text files where you specify the directory and file name, or save the note with a button click "Save Note" that saves the file and you can open all saved files from inside the app by clicking the "Saved Notes" button to open the side window which will show a reference to all saved notes.
+This is a notepad-like app and a note-taking app combined, built with Java and Java swing for the GUI. You can save text whether to external text files where you specify the directory and file name or save the note with a button click "Save Note" that saves the file and you can open all saved files from inside the app by clicking the "Saved Notes" button to open the side window which will show a reference to all saved notes.
 
 ### Future improvements/ideas
 - Adding global shortcuts
