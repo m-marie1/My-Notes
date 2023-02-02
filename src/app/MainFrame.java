@@ -1,10 +1,11 @@
 package app;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -51,8 +52,19 @@ public class MainFrame extends JFrame {
         format = new FormatPanel();
         toolbar = new Toolbar();
 
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(new MyKeyEventDispatcher());
+        try {
+            GlobalScreen.registerNativeHook();
+        } catch (NativeHookException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+
+            System.exit(1);
+        }
+
+        GlobalScreen.addNativeKeyListener(new GlobalKeyListenerExample());
+
+//        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+//        manager.addKeyEventDispatcher(new MyKeyEventDispatcher());
 
 
 // Use GridBagLayout to design the layout
@@ -97,6 +109,12 @@ public class MainFrame extends JFrame {
             @Override
             public void windowClosed(WindowEvent evt) {
                 TextPanel.tOut.stop();
+                
+                try {
+                    GlobalScreen.unregisterNativeHook();
+                } catch (NativeHookException nativeHookException) {
+                    nativeHookException.printStackTrace();
+                }
             }
         });
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
