@@ -1,5 +1,12 @@
 # My-Notes
 A Notepad and a Note Taking app all at once.
+
+### Update
+
+These 2 shortcuts are global and can be used while the application is minimized: 
+"ctrl + alt + c": To make a new note of text copied to the clipboard and save it automatically.
+"ctrl + alt + v": to append text copied to the clipboard to the current open note and save it separated by 2 empty lines from the previous text.
+
 ## Features
 - Open/ Save text files
 - Opening many windows
@@ -11,7 +18,7 @@ A Notepad and a Note Taking app all at once.
 - Change font family with a full long list of font families or by choosing from a few popular fonts
 - Change font color
 - Most of the previous buttons/items have keyboard shortcuts
-- Use "ctrl + alt + c" to make a new note of text copied to the clipboard and saves it automatically.
+- Use "ctrl + alt + c" to make a new note of text copied to the clipboard and save it automatically.
 - A side window to open saved notes
 
 ## Description
