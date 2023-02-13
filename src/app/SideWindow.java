@@ -102,6 +102,7 @@ public class SideWindow extends JPanel {
                                     String txt = br.lines().collect(Collectors.joining(System.lineSeparator()));
                                     TextPanel.txtArea.setText("");
                                     TextPanel.txtArea.append(txt);
+                                    TextPanel.txtArea.setCaretPosition(0);
                                 } catch (FileNotFoundException ex) {
                                     Logger.getLogger(SideWindow.class.getName()).log(Level.SEVERE, null, ex);
                                 }

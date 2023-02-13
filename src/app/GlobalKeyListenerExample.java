@@ -33,40 +33,38 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 
     JFrame frame;
     String fileName;
+//    String output;
 
     public GlobalKeyListenerExample() {
         frame = MainFrame.frame;
 
     }
-    
-    
 
     public void nativeKeyPressed(NativeKeyEvent e) {
 
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        String clipboardText = "";
-
-        try {
-            clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
-//            System.out.println(clipboardText);
-        } catch (UnsupportedFlavorException | IOException ex) {
-            ex.printStackTrace();
-        }
-
+//        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+//        String clipboardText = "";
+//
+//        try {
+//            clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
+////            System.out.println(clipboardText);
+//        } catch (UnsupportedFlavorException | IOException ex) {
+//            ex.printStackTrace();
+//        }
 //        System.out.println("Key Pressed: " + e.getKeyCode());
         if ((e.getModifiers() & NativeKeyEvent.CTRL_L_MASK) != 0
                 && (e.getModifiers() & NativeKeyEvent.ALT_L_MASK) != 0
                 && e.getKeyCode() == NativeKeyEvent.VC_C) {
 
-//            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-//            String clipboardText = "";
-//
-//            try {
-//                clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            String clipboardText = "";
+
+            try {
+                clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
 //                System.out.println(clipboardText);
-//            } catch (UnsupportedFlavorException | IOException ex) {
-//                ex.printStackTrace();
-//            }
+            } catch (UnsupportedFlavorException | IOException ex) {
+                ex.printStackTrace();
+            }
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
             String currentDate = dateFormat.format(new Date());
 
@@ -90,17 +88,31 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
             for (int i = 0; i < invalidChars.length(); i++) {
                 String b = Character.toString(invalidChars.charAt(i));
                 fileName = fileName.replaceAll("\\".equals(b) || "*".equals(b) || "?".equals(b) || "|".equals(b) ? "\\" + Character.toString(invalidChars.charAt(i)) : Character.toString(invalidChars.charAt(i)), "");
+             
 
             }
+            fileName = fileName.replaceAll("\r|\n", ""); // Remove line breaks
+            
             String fileNameCopy = fileName;
+            System.out.println(fileName);
 
             TextPanel.txtArea.setText("");
             TextPanel.txtArea.append(clipboardText);
-            frame.setTitle(fileNameCopy);
+            frame.setTitle(fileNameCopy + ".txt");
 
-//            Toolbar.fileName = frame.getTitle();
+            Toolbar.fileName = frame.getTitle();
             Toolbar.fileAddress = "C:\\Users\\me\\Documents\\My Notes\\";
 
+//            try {
+//
+//                FileWriter fw = new FileWriter(directory + "\\" + fileNameCopy + ".txt");
+//                fw.write(TextPanel.txtArea.getText());
+////                frame.setTitle(Toolbar.fileName);
+//                fw.close();
+//
+//            } catch (Exception ex) {
+//                System.out.println("You've missed Java up, Try again" + e);
+//            }
             File file = new File(directory, fileNameCopy + ".txt");
             try {
                 FileOutputStream fos = new FileOutputStream(file);
@@ -127,6 +139,7 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
                         String txt = br.lines().collect(Collectors.joining(System.lineSeparator()));
                         TextPanel.txtArea.setText("");
                         TextPanel.txtArea.append(txt);
+                        TextPanel.txtArea.setCaretPosition(0);
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(SideWindow.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -140,6 +153,16 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
                 && (e.getModifiers() & NativeKeyEvent.ALT_L_MASK) != 0
                 && e.getKeyCode() == NativeKeyEvent.VC_V) {
 
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            String clipboardText = "";
+
+            try {
+                clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
+//                System.out.println(clipboardText);
+            } catch (UnsupportedFlavorException | IOException ex) {
+                ex.printStackTrace();
+            }
+
             StringBuilder emptyLines = new StringBuilder();
             for (int i = 0; i < 2; i++) {
                 emptyLines.append(System.lineSeparator());
@@ -148,7 +171,19 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
             String textWithEmptyLines = emptyLines.toString() + clipboardText;
 
             TextPanel.txtArea.append(textWithEmptyLines);
+            TextPanel.txtArea.setCaretPosition(TextPanel.txtArea.getText().length());
 
+//            File file = new File(Toolbar.fileAddress + Toolbar.fileName);
+//                        try {
+//                            FileOutputStream fos = new FileOutputStream(file);
+//                            fos.write(TextPanel.txtArea.getText().getBytes());
+//                            fos.flush();
+//                            fos.close();
+//                        } catch (FileNotFoundException ex) {
+//                            Logger.getLogger(SideWindow.class.getName()).log(Level.SEVERE, null, ex);
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(SideWindow.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
             try {
 
                 FileWriter fw = new FileWriter(Toolbar.fileAddress + Toolbar.fileName);
